@@ -14,27 +14,25 @@ def main(args):
         'access_key': args.a,
         'secret_key': args.s
     }
-    if args.r:
-        aws_args['region'] = args.r
-    if args.i:
-        aws_args['image_id'] = args.i
 
     aws = AWS(**aws_args)
     aws.zip_application()
+    aws.connect_to_s3()
+    aws.create_bucket()
+    aws.create_key()
     #aws.connect_to_ec2()
     #aws.create_instance()
     #print aws.instance
-    #aws.connect_to_beanstalk()
-    #aws.create_application('hello-automation', '0.0')
-    #aws.create_application_environment()
-    print aws.zip_path
+    aws.connect_to_beanstalk()
+    aws.create_application()
+    aws.create_application_environment()
+    print aws.app
+    print aws.env
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', help='AWS Access Key Id')
     parser.add_argument('-s', help='AWS Secret Key')
-    parser.add_argument('-r', help='AWS EC2 region')
-    parser.add_argument('-i', help='AWS EC2 Image Id')
 
     main(parser.parse_args(sys.argv[1:]))
