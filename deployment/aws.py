@@ -6,7 +6,7 @@ import boto
 import boto.ec2
 import boto.beanstalk
 from boto.s3.connection import S3Connection
-from boto.s3.key import Key
+from boto.s3 import key
 
 
 class AWS:
@@ -31,7 +31,7 @@ class AWS:
     def create_application(self):
         apps = (self.beanstalk.describe_applications([self.app_name])
                 ['DescribeApplicationsResponse']['DescribeApplicationsResult']['Applications'])
-        if apps:
+        if len(apps) > 0:
             self.delete_application(self.app_name)
             while (self.beanstalk.describe_applications([self.app_name])
                    ['DescribeApplicationsResponse']['DescribeApplicationsResult']['Applications']):
@@ -70,7 +70,7 @@ class AWS:
         self.zip_path = os.path.abspath(self.key_name + '.zip')
 
     def connect_to_s3(self):
-        self.s3 = S3Connection(self.access_key, self.secret_key)
+        self.s3 = boto.connect_s3(self.access_key, self.secret_key)
 
     def create_bucket(self):
         bucket = self.s3.lookup(self.bucket_name)
@@ -79,6 +79,6 @@ class AWS:
 
     def create_key(self):
         bucket = self.s3.get_bucket(self.bucket_name)
-        k = Key(bucket)
+        k = key.Key(bucket)
         k.key = self.key_name
         k.set_contents_from_filename(self.zip_path)
