@@ -26,8 +26,7 @@ def main(args):
     aws.connect_to_beanstalk()
     aws.create_application()
     aws.create_application_environment()
-    print aws.app
-    print aws.env
+    aws.get_environment_url()
 
 
 if __name__ == '__main__':

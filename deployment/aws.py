@@ -2,6 +2,7 @@ import os
 import time
 import shutil
 
+import boto
 import boto.ec2
 import boto.beanstalk
 from boto.s3.connection import S3Connection
@@ -57,7 +58,7 @@ class AWS:
             while (self.beanstalk.describe_applications([self.app_name])
                    ['DescribeApplicationsResponse']['DescribeApplicationsResult']['Applications']):
                 print 'Deleting Application: {}...'.format(self.app_name)
-                time.sleep(5)
+                time.sleep(10)
         self.app = self.beanstalk.create_application_version(self.app_name,
                                                              self.version,
                                                              s3_bucket=self.bucket_name,
@@ -74,6 +75,16 @@ class AWS:
             environment_name=self.env_name,
             solution_stack_name='64bit Amazon Linux 2016.03 v2.1.3 running Node.js'
         )
+
+    def get_environment_url(self):
+        self.created = {'Status': None}
+        while self.created['Status'] != 'Ready':
+            self.created = [e for e in self.beanstalk.describe_environments()
+                            ['DescribeEnvironmentsResponse']['DescribeEnvironmentsResult']['Environments']
+                            if e['Status'] != 'Terminated'][0]
+            print 'Creating Environment...Current Status: {}'.format(self.created['Status'])
+            time.sleep(10)
+        print 'Environment Complete! You can view the site at: {}'.format(self.created['EndpointURL'])
 
     def zip_application(self):
         path = 'app/'
