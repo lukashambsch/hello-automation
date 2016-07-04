@@ -11,7 +11,6 @@ from boto.s3.key import Key
 
 class AWS:
     def __init__(self, access_key, secret_key):
-        self.ec2 = None
         self.beanstalk = None
         self.s3 = None
         self.access_key = access_key
@@ -23,27 +22,6 @@ class AWS:
         self.image_id = 'ami-455c5975'
         self.bucket_name = 'lukashambsch-helloautomation'
         self.key_name = 'app'
-
-    def connect_to_ec2(self):
-        self.ec2 = boto.ec2.connect_to_region(self.region,
-                                              aws_access_key_id=self.access_key,
-                                              aws_secret_access_key=self.secret_key)
-
-    def create_instance(self):
-        reservation = self.ec2.run_instances(self.image_id,
-                                             security_groups=['default'],
-                                             instance_type='t2.micro')
-        print reservation
-        instance = reservation.instances[0]
-        time.sleep(10)
-        while instance.state != 'running':
-            time.sleep(5)
-            instance.update()
-            print 'Instance state: {}'.format(instance.state)
-
-        print 'Instance {} done!'.format(instance.id)
-
-        self.instance = instance
 
     def connect_to_beanstalk(self):
         self.beanstalk = boto.beanstalk.connect_to_region(self.region,

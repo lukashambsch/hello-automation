@@ -20,9 +20,6 @@ def main(args):
     aws.connect_to_s3()
     aws.create_bucket()
     aws.create_key()
-    #aws.connect_to_ec2()
-    #aws.create_instance()
-    #print aws.instance
     aws.connect_to_beanstalk()
     aws.create_application()
     aws.create_application_environment()
