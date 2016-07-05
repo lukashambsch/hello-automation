@@ -2,7 +2,6 @@ IMPORTANT
 ===============
 For the purposes of this mini-project, use an AWS account without no other running applications. This is so that the logging works correctly and no other applications are deleted.
 
-
 Install & Setup
 =================
 
