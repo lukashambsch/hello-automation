@@ -1,6 +1,7 @@
 IMPORTANT
 ===============
-If there is currently an app named hello-automation linked with your AWS account, the deployment script will delete it (along with it's environment). You can change the app name that this deployment uses by changing the self.app_name value in the \_\_init\_\_ of the AWS class in deployment/aws.py.
+For the purposes of this mini-project, use an AWS account without no other running applications. This is so that the logging works correctly and no other applications are deleted.
+
 
 Install & Setup
 =================
