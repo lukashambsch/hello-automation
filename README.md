@@ -19,3 +19,8 @@ The project has an expressjs app that serves the static page in the app director
 Deploy the app by running <code>python deploy.py -a aws_access_key -s aws_secret_key</code>. Where aws_access_key is the AWS access key for your account and aws_secret_key is the AWS secret key for your account.
 
 It may take a while (15-20 minutes) for the environment to be built and the app to be deployed. Once everything is complete, a url will be displayed in the terminal. This url is where you can view the static web page.
+
+Unit Tests
+============
+You can run the unit tests by running <code>python -m pytest
+test/</code> from the root directory of the project.
