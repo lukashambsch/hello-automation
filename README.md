@@ -9,7 +9,7 @@ Clone repository: <code>git clone https://github.com/lukashambsch/hello-automati
 
 Set up a python <a href="https://virtualenv.pypa.io/en/stable/">virtualenv</a> and <a href="https://virtualenv.pypa.io/en/stable/userguide/#activate-script">activate</a> it.
 
-Once your virtualenv is activated run <code>pip install -r requirements.txt</code> from the root directory of the project to install the project's dependencies.
+Once your virtualenv is activated run <code>pip install -r requirements.txt</code> from the root directory of the project to install the project's dependencies. (Ignore error message similar to: <error>failed with error code 1 in /Users/lukashambsch/envs/test-hello/build/cryptography</error>)
 
 Deployment
 ==============
